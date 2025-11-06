@@ -1,23 +1,20 @@
 'use client';
 
-import Link from 'next/link';
 import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
   NavbarItem,
-  Input,
   Button,
   Avatar,
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from '@nextui-org/react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut as clientSignOut } from 'next-auth/react';
 import * as actions from '@/actions';
+import { useRouter } from 'next/navigation';
 
 export default function HeaderAuth() {
   const session = useSession();
+  const router = useRouter();
 
   let authContent: React.ReactNode;
   if (session.status === 'loading') {
@@ -30,9 +27,19 @@ export default function HeaderAuth() {
         </PopoverTrigger>
         <PopoverContent>
           <div className="p-4">
-            <form action={actions.signOut}>
-              <Button type="submit">Sign Out</Button>
-            </form>
+            <Button 
+              onClick={async () => {
+                try {
+                  await clientSignOut({ redirect: false });
+                  await actions.signOut();
+                  router.refresh();
+                } catch (error) {
+                  console.error('Sign out error:', error);
+                }
+              }}
+            >
+              Sign Out
+            </Button>
           </div>
         </PopoverContent>
       </Popover>
@@ -41,19 +48,37 @@ export default function HeaderAuth() {
     authContent = (
       <>
         <NavbarItem>
-          <form action={actions.signIn}>
-            <Button type="submit" color="secondary" variant="bordered">
-              Sign In
-            </Button>
-          </form>
+          <Button
+            color="secondary"
+            variant="bordered"
+            onClick={async () => {
+              try {
+                await actions.signIn();
+                router.refresh();
+              } catch (error) {
+                console.error('Sign in error:', error);
+              }
+            }}
+          >
+            Sign In
+          </Button>
         </NavbarItem>
 
         <NavbarItem>
-          <form action={actions.signIn}>
-            <Button type="submit" color="primary" variant="flat">
-              Sign Up
-            </Button>
-          </form>
+          <Button
+            color="primary"
+            variant="flat"
+            onClick={async () => {
+              try {
+                await actions.signIn();
+                router.refresh();
+              } catch (error) {
+                console.error('Sign up error:', error);
+              }
+            }}
+          >
+            Sign Up
+          </Button>
         </NavbarItem>
       </>
     );

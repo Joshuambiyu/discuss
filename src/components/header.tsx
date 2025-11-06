@@ -7,6 +7,7 @@ import {
   
 } from '@nextui-org/react';
 import HeaderAuth from '@/components/header-auth';
+  import AuthSpinner from './auth-spinner';
 import SearchInput from './search-input';
 import { Suspense } from 'react';
 
@@ -28,7 +29,8 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <HeaderAuth />
+  <HeaderAuth />
+  <AuthSpinner />
       </NavbarContent>
     </Navbar>
   );
