@@ -5,7 +5,7 @@ export default function ContactPage() {
         <h1 className="text-2xl font-bold mb-4">Contact</h1>
         <p className="mb-6 text-slate-700">
           Have a question, feature request, or want to contribute? Fill out the
-          form below and we'll get back to you.
+          form below and we&apos;ll get back to you.
         </p>
 
         <form className="space-y-4">
