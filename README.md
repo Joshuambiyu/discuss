@@ -34,3 +34,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Environment variables for production (Vercel)
+
+When deploying to Vercel, you must set the following Environment Variables in your Project → Settings → Environment Variables:
+
+- `NEXTAUTH_URL` — set this to your production origin (no trailing slash). For this deployment set:
+
+		`NEXTAUTH_URL=https://discus-delta.vercel.app`
+
+- `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` — the OAuth app credentials you created on GitHub for the production app.
+
+- `NEXTAUTH_SECRET` — a long random string used by NextAuth for session encryption.
+
+Also set these variables in the Production environment scope (and Preview if you want preview deployments to use the same credentials). See `.env.example` for sample values.
